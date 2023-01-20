@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
+*env/
 build/
 develop-eggs/
 dist/
@@ -51,6 +51,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+/examples/django_app/db.sqlite3
 
 # Sphinx documentation
 docs/_build/
