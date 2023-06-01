@@ -5,6 +5,13 @@ adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.15.2] - 2023-03-31
+- honeybadger.notify() now returns notice uuid (#139) 
+
+## [0.15.1] - 2023-02-15
+
+## [0.15.0] - 2023-02-01
+
 ## [0.14.1] - 2022-12-14
 
 ## [0.14.0] - 2022-12-10
