@@ -2,6 +2,8 @@ SHELL:= /usr/bin/env bash
 .EXPORT_ALL_VARIABLES:
 PIP_REQUIRE_VIRTUALENV ?= true
 
+PY:= python3.9
+
 .PHONY: test develop django clean
 
 test: develop
@@ -11,7 +13,6 @@ test: develop
 develop: .venv/bin/wheel
 	source .venv/bin/activate && \
 	pip install --editable .
-#	python setup.py develop
 
 django: develop
 ifndef HONEYBADGER_API_KEY
@@ -21,6 +22,7 @@ endif
 	cd examples/django_app && \
 	pip install --requirement requirements.txt && \
 	python manage.py migrate && \
+	echo "Go to http://127.0.0.1/api/div to generate an alert." && \
 	python manage.py runserver
 
 .venv/bin/wheel: .venv/
@@ -28,7 +30,7 @@ endif
 	pip install --upgrade pip setuptools wheel
 
 .venv/:
-	python3 -m venv .venv
+	$(PY) -m venv .venv
 
 clean:
 	rm --force --recursive honeybadger.egg-info/
