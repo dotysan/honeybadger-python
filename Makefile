@@ -34,5 +34,6 @@ endif
 
 clean:
 	rm --force --recursive honeybadger.egg-info/
-	rm --force --recursive .venv/
+	rm --force --recursive .venv/ .eggs/
+	find -type d -name __pycache__ -print0 |xargs -r0 rm --force --recursive
 	rm --force examples/django_app/db.sqlite3
