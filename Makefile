@@ -10,7 +10,8 @@ test: develop
 
 develop: .venv/bin/wheel
 	source .venv/bin/activate && \
-	python setup.py develop
+	pip install --editable .
+#	python setup.py develop
 
 django: develop
 ifndef HONEYBADGER_API_KEY
@@ -30,5 +31,6 @@ endif
 	python3 -m venv .venv
 
 clean:
-	rm -fr .venv/
-	rm -f examples/django_app/db.sqlite3
+	rm --force --recursive honeybadger.egg-info/
+	rm --force --recursive .venv/
+	rm --force examples/django_app/db.sqlite3
