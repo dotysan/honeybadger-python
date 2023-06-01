@@ -23,11 +23,15 @@ jobs:
           - FLASK_VERSION=1.1.1
 
     steps:
-    - uses: actions/checkout@v2
+
+    - name: Check out ${{ github.ref }}
+      uses: actions/checkout@v3
+
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
+
     - name: Install Dependencies
       run: |
         export ${{ matrix.env }}
