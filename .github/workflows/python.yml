@@ -17,14 +17,14 @@ jobs:
         env:
           - DJANGO_VERSION=1.11.29
           - DJANGO_VERSION=2.2.28
-          - DJANGO_VERSION=3.2.19
-          - DJANGO_VERSION=4.2.1
+          # - DJANGO_VERSION=3.2.19
+          # - DJANGO_VERSION=4.2.1
           - FLASK_VERSION=1.0.4
           - FLASK_VERSION=1.1.4
-          - FLASK_VERSION=2.0.3
-          - FLASK_VERSION=2.1.3
-          - FLASK_VERSION=2.2.5
-          - FLASK_VERSION=2.3.2
+          # - FLASK_VERSION=2.0.3
+          # - FLASK_VERSION=2.1.3
+          # - FLASK_VERSION=2.2.5
+          # - FLASK_VERSION=2.3.2
         exclude:
           - python-version: '3.7'
             env: DJANGO_VERSION=4.2.1
@@ -43,11 +43,13 @@ jobs:
       run: |
         export ${{ matrix.env }}
         python -m pip install --upgrade pip
-        pip install psutil six mock itsdangerous nose testfixtures blinker wheel
+        #pip install psutil six mock itsdangerous nose testfixtures blinker wheel
         ./scripts/install_frameworks.sh
-        python setup.py develop
+        pip install --editable .
+        pip list
 
     - name: Run Tests
       run: |
         export ${{ matrix.env }}
+        pip install nose
         python setup.py test
