@@ -42,7 +42,7 @@ jobs:
     - name: Install Dependencies
       run: |
         export ${{ matrix.env }}
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         #pip install psutil six mock itsdangerous nose testfixtures blinker wheel
         ./scripts/install_frameworks.sh
         pip install --editable .
