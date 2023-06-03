@@ -19,11 +19,3 @@ Django==3.2.*; python_version <= '3.7'
 Django==4.2.*; python_version >= '3.8'
 Flask==2.2.*; python_version <= '3.7'
 Flask==2.3.*; python_version >= '3.8'
-
-# these appear to be not needed anymore
-#'Jinja2<4.0; python_version >= "3.5"'
-#'MarkupSafe<3.0; python_version >= "3.5"'
-
-# do we need to declate this? it's already installed with pip install --editable .
-#six==1.16.*
-#psutil==5.9.*
