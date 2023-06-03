@@ -4,26 +4,25 @@ PIP_REQUIRE_VIRTUALENV ?= true
 
 PY:= python3.9
 
-.PHONY: test develop django flask clean
+.PHONY: requirements tests develop django flask clean
 
-# test: develop .venv/bin/tox
-# dont need develop cause tox appears to auto-install honeybadger?
-test: .venv/bin/tox
+requirements: develop
+	source .venv/bin/activate && \
+	pip install --requirement requirements.txt
+
+tests: .venv/bin/tox
 	source .venv/bin/activate && \
 	tox run -- -v
 #	tox run-parallel
-# TODO: pip install --require honeybadger/tests/requirements.txt
 
 develop: .venv/bin/wheel
 	source .venv/bin/activate && \
 	pip install --editable .
-# TODO: pip install --require requirements.txt
 
 .venv/bin/tox: .venv/bin/wheel
 	source .venv/bin/activate && \
 	pip install tox && \
 	touch .venv/bin/tox
-#	pip install nose tox && \
 
 django: develop
 ifndef HONEYBADGER_API_KEY
@@ -55,7 +54,7 @@ endif
 	$(PY) -m venv .venv
 
 clean:
-	rm --force --recursive honeybadger.egg-info/
+	rm --force --recursive honeybadger.egg-info/ build/ dist/
 	rm --force --recursive .venv/ .eggs/ .tox/ .pytest_cache/
 	find -type d -name __pycache__ -print0 |xargs -r0 rm --force --recursive
 	rm --force examples/django_app/db.sqlite3

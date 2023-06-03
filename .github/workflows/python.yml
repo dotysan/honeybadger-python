@@ -2,7 +2,7 @@ name: Test
 
 on:
   push:
-    branches: [ master, flask2 ]
+    branches: [ master, tox ]
   pull_request:
     branches: [ master ]
 
@@ -17,8 +17,8 @@ jobs:
         env:
           - DJANGO_VERSION=1.11.29
           - DJANGO_VERSION=2.2.28
-          # - DJANGO_VERSION=3.2.19
-          # - DJANGO_VERSION=4.2.1
+          - DJANGO_VERSION=3.2.19
+          - DJANGO_VERSION=4.2.1
           - FLASK_VERSION=1.0.4
           - FLASK_VERSION=1.1.4
           # - FLASK_VERSION=2.0.3
@@ -43,7 +43,7 @@ jobs:
       run: |
         export ${{ matrix.env }}
         python -m pip install --upgrade pip setuptools wheel
-        #pip install psutil six mock itsdangerous nose testfixtures blinker wheel
+        pip install --requirement requirements.txt
         ./scripts/install_frameworks.sh
         pip install --editable .
         pip list
@@ -51,5 +51,5 @@ jobs:
     - name: Run Tests
       run: |
         export ${{ matrix.env }}
-        pip install nose
-        python setup.py test
+        pip install tox
+        tox ${{ matrix.python-version }} -e run -- -v

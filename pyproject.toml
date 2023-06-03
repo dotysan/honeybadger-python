@@ -1,0 +1,6 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# [tool.tox]
+# tox_pip_extensions_ext_pip_custom_platform = true
