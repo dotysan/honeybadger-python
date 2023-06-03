@@ -52,4 +52,4 @@ jobs:
       run: |
         export ${{ matrix.env }}
         pip install tox
-        tox ${{ matrix.python-version }} -e run -- -v
+        tox -e ${{ matrix.python-version }} run -- -v
