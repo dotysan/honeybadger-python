@@ -28,6 +28,8 @@ jobs:
         exclude:
           - python-version: '3.7'
             env: DJANGO_VERSION=4.2.1
+          - python-version: '3.7'
+            env: FLASK_VERSION=2.3.2
     steps:
 
     - name: Check out ${{ github.ref }}
