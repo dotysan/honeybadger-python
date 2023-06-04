@@ -11,9 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-      # max-parallel: 4
       matrix:
-        # python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
         env:
           - DJANGO_VERSION=1.11.29
           - DJANGO_VERSION=2.2.28
@@ -25,21 +23,12 @@ jobs:
           - FLASK_VERSION=2.1.3
           - FLASK_VERSION=2.2.5
           - FLASK_VERSION=2.3.2
-        # exclude:
-        #   - python-version: '3.7'
-        #     env: DJANGO_VERSION=4.2.1
-        #   - python-version: '3.7'
-        #     env: FLASK_VERSION=2.3.2
 
     steps:
 
     - name: Check out ${{ github.ref }}
       uses: actions/checkout@v3
 
-    # - name: Set up Python ${{ matrix.python-version }}
-    #   uses: actions/setup-python@v4
-    #   with:
-    #     python-version: ${{ matrix.python-version }}
     - name: Set up Python Versions
       uses: actions/setup-python@v4
       with:
@@ -51,18 +40,24 @@ jobs:
           3.11
 
     - name: Install Dependencies
+      # run: |
+      #   export ${{ matrix.env }}
+      #   python -m pip install --upgrade pip setuptools wheel
+      #   pip install --requirement requirements.txt
+      #   ./scripts/install_frameworks.sh
+      #   pip install --editable .
       run: |
         export ${{ matrix.env }}
         python -m pip install --upgrade pip setuptools wheel
-        pip install --requirement requirements.txt
-        ./scripts/install_frameworks.sh
         pip install --editable .
+        echo DEBUG
+        pip list
 
     - name: Run Tests
       run: |
         export ${{ matrix.env }}
         pip install tox
-        tox run-parallel --parallel-no-spinner
-# let's run all python tests together
-# tox -e ${{ matrix.python-version }} run
-# tox run -- -v
+        echo DEBUG
+        lscpu
+        pip list
+        tox --colored=yes run-parallel --parallel=3 --parallel-no-spinner --skip-missing-interpreters=false
