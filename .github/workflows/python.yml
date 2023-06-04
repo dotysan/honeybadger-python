@@ -40,10 +40,15 @@ jobs:
     #   uses: actions/setup-python@v4
     #   with:
     #     python-version: ${{ matrix.python-version }}
-    - name: Set up Python 3.9
+    - name: Set up Python Versions
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: |
+          3.7
+          3.8
+          3.9
+          3.10
+          3.11
 
     - name: Install Dependencies
       run: |
@@ -57,6 +62,7 @@ jobs:
       run: |
         export ${{ matrix.env }}
         pip install tox
-        tox run -- -v
+        tox run-parallel
+# tox run -- -v
 # let's run all python tests together
 # tox -e ${{ matrix.python-version }} run -- -v
