@@ -40,24 +40,13 @@ jobs:
           3.11
 
     - name: Install Dependencies
-      # run: |
-      #   export ${{ matrix.env }}
-      #   python -m pip install --upgrade pip setuptools wheel
-      #   pip install --requirement requirements.txt
-      #   ./scripts/install_frameworks.sh
-      #   pip install --editable .
       run: |
-        export ${{ matrix.env }}
         python -m pip install --upgrade pip setuptools wheel
         pip install --editable .
-        echo DEBUG
-        pip list
 
     - name: Run Tests
       run: |
         export ${{ matrix.env }}
         pip install tox
-        echo DEBUG
-        lscpu
         pip list
-        tox --colored=yes run-parallel --parallel=3 --parallel-no-spinner --skip-missing-interpreters=false
+        tox --colored=yes run-parallel --parallel=auto --parallel-no-spinner --skip-missing-interpreters=false
