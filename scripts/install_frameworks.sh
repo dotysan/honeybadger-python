@@ -1,14 +1,12 @@
 #!/bin/sh
 set -e
 
-# TODO: use? --force-reinstall
-
 if [ "$DJANGO_VERSION" ]
 then
-    pip install --upgrade Django==$DJANGO_VERSION
+    pip install --force-reinstall Django==$DJANGO_VERSION
 fi
 
 if [ "$FLASK_VERSION" ]
 then
-    pip install --upgrade Flask==$FLASK_VERSION
+    pip install --force-reinstall Flask==$FLASK_VERSION
 fi
