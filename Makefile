@@ -12,9 +12,8 @@ requirements: develop
 
 tests: .venv/bin/tox
 	source .venv/bin/activate && \
-	tox run
-# -- -v
-#	tox run-parallel
+	tox run-parallel --parallel-no-spinner
+#	tox run -- -v
 
 develop: .venv/bin/wheel
 	source .venv/bin/activate && \
