@@ -4,7 +4,10 @@ from mock import patch
 from mock import Mock
 import sys
 
-from django.urls import re_path
+try:
+    from django.urls import re_path
+except:
+    from django.conf.urls import url as re_path
 from django.conf import settings
 from django.test import RequestFactory
 from django.test import SimpleTestCase
