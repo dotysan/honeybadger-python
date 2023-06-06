@@ -2,6 +2,7 @@ SHELL:= /usr/bin/env bash
 .EXPORT_ALL_VARIABLES:
 PIP_REQUIRE_VIRTUALENV ?= true
 
+# this is just the preferred vwersion for development
 PY:= python3.9
 
 .PHONY: requirements tests develop django flask clean
@@ -12,8 +13,7 @@ requirements: develop
 
 tests: .venv/bin/tox
 	source .venv/bin/activate && \
-	tox --colored=yes run-parallel --parallel=auto --parallel-no-spinner --skip-missing-interpreters=false
-# --parallel-live
+	tox --colored=yes run-parallel --parallel=auto --parallel-no-spinner --skip-missing-interpreters=false --parallel-live
 #	tox run -- -v
 
 develop: .venv/bin/wheel
